@@ -1,0 +1,6 @@
+# Python environments
+.venv
+venv
+
+# Editor configs
+.vscode

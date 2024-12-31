@@ -25,14 +25,14 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          workload_identity_provider: 'projects/812641158075/locations/global/workloadIdentityPools/github-actions-pool/providers/wif-provider'
-          service_account: 'github-actions-service-account@giga-energy-trade.iam.gserviceaccount.com'
+          workload_identity_provider: 'projects/622176417487/locations/global/workloadIdentityPools/github-workers-pool/providers/github-provider'
+          service_account: 'github-actions-service-account@playground-tofu-project.iam.gserviceaccount.com'
 
       - id: 'deploy'
-        name: 'Deploy platform to Google Cloud - App Engine with no traffic'
+        name: 'Deploy platform to Google Cloud - App Engine'
         uses: 'google-github-actions/deploy-appengine@v1.2.1'
         with:
-          working_directory: ../energy-trade/
+          working_directory: ./app/
           deliverables: app.yaml
           promote: false
           version: production

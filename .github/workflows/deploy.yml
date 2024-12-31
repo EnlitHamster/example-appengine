@@ -32,7 +32,7 @@ jobs:
         name: 'Deploy platform to Google Cloud - App Engine'
         uses: 'google-github-actions/deploy-appengine@v1.2.1'
         with:
-          working_directory: ./app/
+          working_directory: ../example-appengine/
           deliverables: app.yaml
           promote: false
           version: production

@@ -44,9 +44,9 @@ class Base(DeclarativeBase):
 class Greeting(Base):
     __tablename__ = 'greetings'
 
-    name: Mapped[str] = mapped_column(String, primary_key=True)
-    first_greeted: Mapped[datetime] = mapped_column(DateTime(), insert_default=sa.func.now())
-    last_greeted: Mapped[datetime] = mapped_column(DateTime(), insert_default=sa.func.now(), onupdate=sa.func.now())
+    name: Mapped[str] = mapped_column(String(255), primary_key=True)
+    first_greeted: Mapped[datetime] = mapped_column(DateTime(True), insert_default=sa.func.now())
+    last_greeted: Mapped[datetime] = mapped_column(DateTime(True), insert_default=sa.func.now(), onupdate=sa.func.now())
 
 
 @app.route('/database/setup')

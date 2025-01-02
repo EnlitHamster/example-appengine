@@ -4,3 +4,6 @@ venv
 
 # Editor configs
 .vscode
+
+# Account tokens
+*token.json

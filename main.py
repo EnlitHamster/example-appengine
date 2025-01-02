@@ -66,6 +66,7 @@ def greeted_task():
         greeting = Greeting(name=name)
         cursor.merge(greeting)
         cursor.commit()
+        cursor.refresh(greeting)
 
     print(f'{name} first greeted on {greeting.first_greeted}')
 

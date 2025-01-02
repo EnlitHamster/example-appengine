@@ -34,5 +34,4 @@ jobs:
         with:
           working_directory: ../example-appengine/
           deliverables: app.yaml
-          promote: false
           version: production

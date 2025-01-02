@@ -37,7 +37,7 @@ def greeted_task():
     if queue_name is None or queue_name not in ALLOWED_QUEUES:
         return Response('Only Cloud Tasks can call this route', status=401)
 
-    name = request.data
+    name = request.data.decode('utf-8')
     print(f'Greeted {name}')
     return Response(status=204)
 
@@ -52,8 +52,10 @@ def create_app_engine_task(relative_url: str, payload: str, queue_name: str) -> 
         "app_engine_http_request": {
             "http_method": tasks_v2.HttpMethod.POST,
             "relative_uri": relative_url,
-            "body": payload,
-            "version": "production",
+            "body": payload.encode('utf-8'),
+            "app_engine_routing": {
+                "version": "production",
+            },
         }
     }
 

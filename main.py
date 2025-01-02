@@ -1,12 +1,13 @@
 import os
 from flask import Flask, Response, request
+from datetime import datetime
 
 from google.cloud import tasks_v2
 from google.cloud.tasks_v2 import Task
 import sqlalchemy as sa
 
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
-from sqlalchemy.types import DateTime
+from sqlalchemy.types import DateTime, String
 
 
 ALLOWED_QUEUES = ('task-queue', )
@@ -43,9 +44,14 @@ class Base(DeclarativeBase):
 class Greeting(Base):
     __tablename__ = 'greetings'
 
-    name: Mapped[str] = mapped_column(primary_key=True)
-    first_greeted: Mapped[DateTime] = mapped_column(insert_default=sa.func.now())
-    last_greeted: Mapped[DateTime] = mapped_column(insert_default=sa.func.now(), onupdate=sa.func.now())
+    name: Mapped[str] = mapped_column(String, primary_key=True)
+    first_greeted: Mapped[datetime] = mapped_column(DateTime(), insert_default=sa.func.now())
+    last_greeted: Mapped[datetime] = mapped_column(DateTime(), insert_default=sa.func.now(), onupdate=sa.func.now())
+
+
+@app.route('database/setup')
+def database_setup():
+    Base.metadata.create_all(bind=init_unix_connection_engine())
 
 
 @app.route('/task/greeted', methods=['POST'])

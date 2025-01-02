@@ -6,7 +6,7 @@ from google.cloud.tasks_v2 import Task
 import sqlalchemy as sa
 
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
-from sqlalchemy.types import DATETIME
+from sqlalchemy.types import DateTime
 
 
 ALLOWED_QUEUES = ('task-queue', )
@@ -44,8 +44,8 @@ class Greeting(Base):
     __tablename__ = 'greetings'
 
     name: Mapped[str] = mapped_column(primary_key=True)
-    first_greeted: Mapped[DATETIME] = mapped_column(insert_default=sa.func.now())
-    last_greeted: Mapped[DATETIME] = mapped_column(insert_default=sa.func.now(), onupdate=sa.func.now())
+    first_greeted: Mapped[DateTime] = mapped_column(insert_default=sa.func.now())
+    last_greeted: Mapped[DateTime] = mapped_column(insert_default=sa.func.now(), onupdate=sa.func.now())
 
 
 @app.route('/task/greeted', methods=['POST'])

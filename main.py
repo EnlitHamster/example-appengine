@@ -31,7 +31,7 @@ def greet(name):
     return f'<h1>Hello, {name}!</h1>'
 
 
-@app.route('/task/greeted')
+@app.route('/task/greeted', methods=['POST'])
 def greeted_task():
     queue_name = request.headers.get('X-Appengine-Queuename')
     if queue_name is None or queue_name not in ALLOWED_QUEUES:

@@ -62,11 +62,16 @@ def greeted_task():
     
     name = request.data.decode('utf-8')
 
-    with Session(init_unix_connection_engine()) as cursor:
-        greeting = Greeting(name=name)
-        cursor.merge(greeting)
+    engine = init_unix_connection_engine()
+
+    with Session(engine) as cursor:
+        cursor.merge(Greeting(name=name))
         cursor.commit()
-        cursor.refresh(greeting)
+
+    with Session(engine) as cursor:
+        greeting = cursor.execute(
+            sa.select(Greeting).where(Greeting.name == name)
+        ).scalar_one()
 
     print(f'{name} first greeted on {greeting.first_greeted}')
 

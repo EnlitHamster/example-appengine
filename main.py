@@ -52,6 +52,7 @@ class Greeting(Base):
 @app.route('/database/setup')
 def database_setup():
     Base.metadata.create_all(bind=init_unix_connection_engine())
+    return Response(status=200)
 
 
 @app.route('/task/greeted', methods=['POST'])

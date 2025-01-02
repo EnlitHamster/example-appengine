@@ -49,7 +49,7 @@ class Greeting(Base):
     last_greeted: Mapped[datetime] = mapped_column(DateTime(), insert_default=sa.func.now(), onupdate=sa.func.now())
 
 
-@app.route('database/setup')
+@app.route('/database/setup')
 def database_setup():
     Base.metadata.create_all(bind=init_unix_connection_engine())
 
